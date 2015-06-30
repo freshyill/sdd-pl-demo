@@ -6,7 +6,6 @@ var gulp           = require('gulp'),
     production     = true,
     prefixes       = ['last 2 version', 'safari 5', 'ie 8', 'opera 12.1', 'ios 6', 'android 4', 'Firefox >= 4'],
     cssStyle       = "compressed",
-    bsProxy        = "demo.dev",
     projectA       = false,
     projectB       = false,
     projectC       = false,
@@ -87,14 +86,49 @@ gulp.task('styles', function() {
     //.pipe(projectA ? $.replace("../../fonts", "../fonts") : $.util.noop())
     //.pipe(projectA ? $.filter(['*sciencecore*', '*fonts*']) : $.util.noop())
     .pipe(projectA ? gulp.dest(paths.styles.projectA) : $.util.noop())
-
     .pipe(projectB ? gulp.dest(paths.styles.projectB) : $.util.noop())
-
     .pipe(projectC ? gulp.dest(paths.styles.projectC) : $.util.noop())
 
     .pipe($.filter('*.css'))
     .pipe(reload({ stream: true }));
 
+});
+
+//
+// Images
+//
+gulp.task("images", function() {
+  gulp.src(paths.images.src)
+    .pipe($.changed(paths.images.dest))
+    .pipe($.using())
+    .pipe($.size())
+    .pipe($.imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false}],
+              use: [pngquant()]
+    }))
+    .pipe(gulp.dest(paths.images.dest));
+});
+
+//
+// BrowserSync
+//
+gulp.task("browserSync", function() {
+  browserSync({
+    ui: {
+      port: 8080
+    },
+    server: {
+      baseDir: "public"
+    },
+    ghostMode: {
+      clicks: true,
+      scroll: true,
+      links: true,
+      forms: true
+    },
+    debugInfo: true
+  });
 });
 
 
@@ -108,11 +142,8 @@ gulp.task('reload', function () {
 //
 // Watch
 //
-gulp.task('watch', ['styles', 'scripts', 'images', 'browserSync'], function() {
+gulp.task('watch', ['styles', 'images', 'browserSync'], function() {
   gulp.watch(paths.styles.src, ['styles']).on('change', function(evt) {
-    changeEvent(evt);
-  });
-  gulp.watch(paths.scripts.src, ['scripts']).on('change', function(evt) {
     changeEvent(evt);
   });
   gulp.watch(paths.images.src, ['images']).on('change', function(evt) {

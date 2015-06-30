@@ -31,5 +31,8 @@
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.2.4",
     "imagemin-pngquant": "^4.1.0"
+  },
+  "dependencies": {
+    "gulp-using": "0.0.1"
   }
 }

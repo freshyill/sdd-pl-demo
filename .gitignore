@@ -5,3 +5,4 @@ config.ini
 latest-change.txt
 *-ck.js
 *.sass-cache/
+node_modules

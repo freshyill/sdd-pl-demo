@@ -1,0 +1,35 @@
+{
+  "name": "sdd-pl-demo",
+  "version": "1.0.0",
+  "description": "Demo gulpfile for Styleguide-Driven Development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freshyill/sdd-pl-demo"
+  },
+  "author": "Chris Coleman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freshyill/sdd-pl-demo/issues"
+  },
+  "homepage": "https://github.com/freshyill/sdd-pl-demo",
+  "devDependencies": {
+    "browser-sync": "^2.7.13",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-changed": "^1.2.1",
+    "gulp-filter": "^2.0.2",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.0.3",
+    "gulp-size": "^1.2.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.2.4",
+    "imagemin-pngquant": "^4.1.0"
+  }
+}

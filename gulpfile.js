@@ -1,7 +1,6 @@
 var gulp           = require('gulp'),
     $              = require('gulp-load-plugins')(),
     browserSync    = require('browser-sync'),
-    pngquant       = require('imagemin-pngquant'),
     reload         = browserSync.reload,
     production     = true,
     prefixes       = ['last 2 version', 'safari 5', 'ie 8', 'opera 12.1', 'ios 6', 'android 4', 'Firefox >= 4'],
@@ -9,7 +8,6 @@ var gulp           = require('gulp'),
     projectA       = false,
     projectB       = false,
     projectC       = false,
-    jcore          = false,
     projectApaths  = false,
     projectBpaths  = false,
     projectCpaths  = false;
@@ -34,7 +32,7 @@ if ($.util.env.projectB === true) {
   projectBpaths = require("./paths/paths-projectB.json");
 }
 
-if ($.util.env.projectc === true) {
+if ($.util.env.projectC === true) {
   projectC    = true,
   cssStyle   = "compressed",
   projectCpaths = require("./paths/paths-projectC.json");
@@ -43,21 +41,7 @@ if ($.util.env.projectc === true) {
 
 var paths = {
   patterns: "source/_patterns/**/*.{mustache,json}",
-  images: {
-      src: "source/images/**/*.{jpg,jpeg,png,gif,svg}",
-     dest: "public/images/",
-    // theme: themePaths.images
-    // Do we want to automate this? Our themes are pretty light on the images,
-    // so probably not, right?
-  },
-  scripts: {
-      src: "source/js/**/*.js",
-     skip: "!source/js/lib/modernizr.js",
-     dest: "public/js/",
-    // theme: themePaths.scripts
-    // We don't want to just dump everything into our themes, so we're not going
-    // to automate this right now.
-  },
+  data: "source/**/*.json",
   styles: {
          src: ["source/css/**/*.scss"],
         dest: "public/css",
@@ -95,22 +79,6 @@ gulp.task('styles', function() {
 });
 
 //
-// Images
-//
-gulp.task("images", function() {
-  gulp.src(paths.images.src)
-    .pipe($.changed(paths.images.dest))
-    .pipe($.using())
-    .pipe($.size())
-    .pipe($.imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}],
-              use: [pngquant()]
-    }))
-    .pipe(gulp.dest(paths.images.dest));
-});
-
-//
 // BrowserSync
 //
 gulp.task("browserSync", function() {
@@ -142,14 +110,14 @@ gulp.task('reload', function () {
 //
 // Watch
 //
-gulp.task('watch', ['styles', 'images', 'browserSync'], function() {
+gulp.task('watch', ['styles', 'browserSync'], function() {
   gulp.watch(paths.styles.src, ['styles']).on('change', function(evt) {
     changeEvent(evt);
   });
-  gulp.watch(paths.images.src, ['images']).on('change', function(evt) {
+  gulp.watch(paths.patterns, ['reload']).on('change', function(evt) {
     changeEvent(evt);
   });
-  gulp.watch(paths.patterns, ['reload']).on('change', function(evt) {
+  gulp.watch(paths.data, ['reload']).on('change', function(evt) {
     changeEvent(evt);
   });
 });

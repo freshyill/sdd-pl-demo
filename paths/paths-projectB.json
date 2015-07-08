@@ -1,5 +1,5 @@
 {
-   "images" : "demo/projectB/img",
-  "scripts" : "demo/projectB/js",
-   "styles" : "demo/projectB/css"
+   "images" : "../sdd-demo-projectB/img",
+  "scripts" : "../sdd-demo-projectB/js",
+   "styles" : "../sdd-demo-projectB/css"
 }

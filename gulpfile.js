@@ -170,5 +170,6 @@ gulp.task('watch', ['styles', 'browserSync'], function() {
 });
 
 // Default
-// This is what happens when you just type `gulp` into your terminal. You could override it by
+// This is what happens when you just type `gulp` into your terminal.
+// You could override it by following it up with an individual task, like `gulp styles`
 gulp.task('default', ['watch']);
